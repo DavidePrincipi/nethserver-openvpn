@@ -41,12 +41,6 @@ class Upload extends \Nethgui\Controller\Table\AbstractAction
             return;
         }
 
-       /* $arcValidator = $this->createValidator()->platform('config-backup-upload');
-
-        if( ! $arcValidator->evaluate($_FILES['arc']['tmp_name'])) {
-            $report->addValidationError($this, 'UploadArc', $arcValidator);
-        }*/
-
     }
 
     public function process()
@@ -56,7 +50,6 @@ class Upload extends \Nethgui\Controller\Table\AbstractAction
         }
         $client = json_decode(file_get_contents($_FILES['arc']['tmp_name']));
         $this->getPlatform()->signalEvent("openvpn-tunnel-upload", array($_FILES['arc']['tmp_name']));
-        #$process = $this->getPlatform()->exec('/usr/bin/sudo /usr/libexec/nethserver/backup-config-history push -t upload -f ${1} -d ${2}', array($_FILES['arc']['tmp_name'], $this->parameters['Description']));
         $this->getParent()->getAdapter()->flush();
     }
 
